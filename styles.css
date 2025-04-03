@@ -1,0 +1,179 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    background: url('banner.jpg') no-repeat center center/cover;
+}
+
+.headers {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url('banner.jpg') no-repeat center center/cover;
+    overflow-y: hidden;
+}
+
+.container {
+    width: 1320px;
+    margin: 0 auto;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.548);
+}
+
+.navlist {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+nav .logo {
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+    padding-left: 50px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.navlist button {
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    background: whitesmoke;
+    color: rgb(0, 0, 0);
+    font-size: medium;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.navlist button:hover {
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
+    text-align: center;
+}
+
+.banner h1 {
+    font-size: 48px;
+    margin: 0;
+    color: black;
+}
+
+main {
+    padding: 50px;
+    background-color: #f8f8f8;
+}
+
+section {
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    margin-top: 0;
+}
+
+#about,
+#features,
+#contact {
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.btnlog {
+    margin-top: 50px;
+}
+
+.btnlog a {
+    padding: 10px 20px;
+    border-radius: 15px;
+    background: whitesmoke;
+    color: rgb(0, 0, 0);
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 2px solid black;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.btnlog a:hover {
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
+}
+
+.loginpart {
+    padding: 20px 80px;
+    margin: 0 auto;
+    width: 500px;
+    background: rgba(255, 255, 255, 0.29);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    text-align: left;
+    border: 1px solid rgb(5, 0, 0);
+}
+
+.loginpart h3 {
+    color: black;
+}
+
+.loginpart input {
+    padding: 10px 10px;
+    width: 100%;
+    border-radius: 20px;
+    border: 2px solid black;
+    font-size: 20px;
+}
+
+.loginpart button {
+    padding: 10px 10px;
+    width: 50%;
+    border-radius: 20px;
+    border: 2px solid black;
+    font-size: 20px;
+    background: black;
+    color: white;
+    font-weight: 700;
+    margin-top: 15px;
+    text-align: center;
+}

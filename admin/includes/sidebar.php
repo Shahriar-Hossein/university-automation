@@ -1,0 +1,153 @@
+<?php
+require_once('dbconnection.php');
+if (!isset($_SESSION['admin_login_id'])) {
+  header('Location: http://localhost/sms/adminlogin.php');
+}
+$admin_login_user = $_SESSION['admin_login_id'];
+?>
+
+<div class="sidebar close">
+  <div class="logo-details">
+    <span class="logo_name">SMS</span>
+  </div>
+
+  <ul class="nav-links">
+
+    <li>
+      <a href="http://localhost/sms/admin/dashboard.php">
+        <i class='bx bx-grid-alt'></i>
+        <span class="link_name">Dashboard</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="http://localhost/sms/admin/dashboard.php">Dashboard</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="iocn-link">
+        <a>
+          <i class='bx bx-collection'></i>
+          <span class="link_name">Course</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name">Course</a></li>
+        <li><a href="http://localhost/sms/admin/pages/addCourse.php">Add Course</a></li>
+        <li><a href="http://localhost/sms/admin/pages/manageCourse.php">Manage Course</a></li>
+        <li><a href="http://localhost/sms/admin/pages/manageSection.php">Manage Section</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="iocn-link">
+        <a>
+          <i> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19 19V4h-4V3H5v16H3v2h12V6h2v15h4v-2zm-6 0H7V5h6zm-3-8h2v2h-2z"/></svg>
+          </i>
+          <span class="link_name">Rooms</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+        <ul class="sub-menu">
+          <li><a class="link_name">Rooms</a></li>
+          <li><a href="http://localhost/sms/admin/pages/addRoom.php">Add Room</a></li>
+          <li><a href="http://localhost/sms/admin/pages/manageRooms.php">Manage Room</a></li>
+        </ul>
+      </li>
+
+    <li>
+      <div class="iocn-link">
+        <a>
+          <i class='bx bxs-time'></i>
+          <span class="link_name">Schedule</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name">Schedule</a></li>
+        <li><a href="http://localhost/sms/admin/pages/teacherSchedule.php">Teacher Schedule</a></li>
+        <li><a href="http://localhost/sms/admin/pages/courseSchedule.php">Course Schedule</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="iocn-link">
+        <a href="">
+          <i class='bx bxs-user-rectangle'></i>
+          <span class="link_name">Teachers</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="#">Teachers</a></li>
+        <li><a href="http://localhost/sms/admin/pages/addTeachers.php">Add Teachers</a></li>
+        <li><a href="http://localhost/sms/admin/pages/manageTeachers.php">Manage Teachers</a></li>
+
+      </ul>
+    </li>
+
+
+    <li>
+      <div class="iocn-link">
+        <a href="">
+          <i class='bx bx-user'></i>
+          <span class="link_name">Students</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="#">Students</a></li>
+        <li><a href="http://localhost/sms/admin/pages/addStudents.php">Add Students</a></li>
+        <li><a href="http://localhost/sms/admin/pages/manageStudents.php">Manage Students</a></li>
+        <li><a href="http://localhost/sms/admin/pages/attendance.php">Attendance</a></li>
+        <li><a href="http://localhost/sms/admin/pages/paymentHistory.php">Payment History</a></li>
+      </ul>
+    </li>
+
+
+    <li>
+      <div class="iocn-link">
+        <a href="">
+          <i class='bx bxs-bell'></i>
+          <span class="link_name">Public Notice</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" href="#">Publice Notice</a></li>
+        <li><a href="http://localhost/sms/admin/pages/addPublicNotice.php">Add Public Notice</a></li>
+        <li><a href="http://localhost/sms/admin/pages/managePublicNotice.php">Manage Public Notice</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="http://localhost/sms/admin/pages/search.php">
+        <i class='bx bx-search-alt'></i>
+        <span class="link_name">Search</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="http://localhost/sms/admin/pages/search.php">Search</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <div class="profile-details">
+        <div class="profile-content">
+          <img src="../images/profile.jpg" alt="profileImg">
+        </div>
+        <div class="name-job">
+          <div class="profile_name">
+            <?php $adminName = mysqli_query($conn, "SELECT * FROM `admin_db` WHERE `Id` = '$admin_login_user'");
+            $admin_login_user_data = mysqli_fetch_assoc($adminName);
+            echo $admin_login_user_data['adminName'];
+            ?>
+          </div>
+          <div class="job">Admin</div>
+        </div>
+        <a href="http://localhost/sms/logout.php"><i class='bx bx-log-out'></i></a>
+      </div>
+    </li>
+
+  </ul>
+</div>
