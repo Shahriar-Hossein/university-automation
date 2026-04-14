@@ -18,6 +18,5 @@ if (!isset($page_title)) {
 
 <body>
     <?php include_once __DIR__ . '/sidebar.php'; ?>
-    <script src="../js/script.js"></script>
     <section class="home-section">
         <div class="home-content">
