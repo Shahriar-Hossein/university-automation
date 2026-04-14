@@ -7,6 +7,9 @@ if (!isset($_SESSION['admin_login_id'])) {
 
 $admin_login_user = $_SESSION['admin_login_id'];
 
+// Ensure DB connection is available for sidebar and queries
+include_once('../dbconnection.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +55,7 @@ $admin_login_user = $_SESSION['admin_login_id'];
                   echo '<p class="card-number">No Data</p>';
                 }
                 ?>
-                <a href="http://localhost/sms/admin/pages/manageCourse.php" class="card-link">View Course</a>
+                <a href="<?php echo $base_url; ?>/admin/pages/manageCourse.php" class="card-link">View Course</a>
               </div>
             </div>
 
@@ -71,7 +74,7 @@ $admin_login_user = $_SESSION['admin_login_id'];
                   echo '<p class="card-number">No Data</p>';
                 }
                 ?>
-                <a href="http://localhost/sms/admin/pages/manageTeachers.php" class="card-link">View Teachers</a>
+                <a href="<?php echo $base_url; ?>/admin/pages/manageTeachers.php" class="card-link">View Teachers</a>
               </div>
             </div>
 
@@ -90,7 +93,7 @@ $admin_login_user = $_SESSION['admin_login_id'];
                   echo '<p class="card-number">No Data</p>';
                 }
                 ?>
-                <a href="http://localhost/sms/admin/pages/manageStudents.php" class="card-link">View Students</a>
+                <a href="<?php echo $base_url; ?>/admin/pages/manageStudents.php" class="card-link">View Students</a>
               </div>
             </div>
 
@@ -109,7 +112,7 @@ $admin_login_user = $_SESSION['admin_login_id'];
                   echo '<p class="card-number">No Data</p>';
                 }
                 ?>
-                <a href="http://localhost/sms/admin/pages/managePublicNotice.php" class="card-link">View Public Notices</a>
+                <a href="<?php echo $base_url; ?>/admin/pages/managePublicNotice.php" class="card-link">View Public Notices</a>
               </div>
             </div>
           </div>
@@ -117,7 +120,7 @@ $admin_login_user = $_SESSION['admin_login_id'];
         </div>
 
         <div class="update-report">
-          <a href="http://localhost/sms/admin/dashboard.php"><i class='bx bx-refresh'></i> Updated Report</a>
+          <a href="<?php echo $base_url; ?>/admin/dashboard.php"><i class='bx bx-refresh'></i> Updated Report</a>
         </div>
       </div>
     </div>

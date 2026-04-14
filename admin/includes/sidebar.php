@@ -1,4 +1,12 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+// Ensure DB connection is available for queries in this include
+if (!isset($conn)) {
+  require_once __DIR__ . '/../../dbconnection.php';
+}
 
 // Compute a dynamic base URL so links work on any host/port/path
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ? 'https' : 'http';
