@@ -52,7 +52,7 @@ $total_courses = $total_courses_data['total_courses'] ?? 0;
             <div class="card-content">
               <h3 class="card-title">Course</h3>
               <p class="card-number"><?php echo $total_courses; ?></p>
-              <a href="http://localhost/sms/students/pages/viewCourse.php" class="card-link">View Course</a>
+              <a href="<?= BASE_URL ?>students/pages/viewCourse.php" class="card-link">View Course</a>
             </div>
           </div>
 

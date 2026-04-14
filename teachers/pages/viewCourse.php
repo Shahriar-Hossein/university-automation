@@ -63,7 +63,7 @@ if (!empty($course_ids)) {
                 <div class="admin_monitor">
                     <div class="manage_admin_part" style="position: relative;">
                         <h2>View Course</h2>
-                        <div style="position: absolute; top:20px; left:750px;"><a href="http://localhost/sms/teachers/pages/courseSchedule.php"><i class='bx bx-timer' style="font-size: 30px;;"></i></a></div>
+                        <div style="position: absolute; top:20px; left:750px;"><a href="<?= BASE_URL ?>teachers/pages/courseSchedule.php"><i class='bx bx-timer' style="font-size: 30px;;"></i></a></div>
                         <div class="table-group">
                             <table style="margin-top: 20px; width: 800px;">
                                 <thead>

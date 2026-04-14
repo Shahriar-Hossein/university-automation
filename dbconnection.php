@@ -11,6 +11,16 @@ define('DB_PASS', 'root');
 define('DB_NAME', 'smsdb');
 
 // Establish database connection if not already created.
+// Define a dynamic BASE_URL so links work whether app is in a subfolder
+// (e.g. /sms) or served from root (e.g. localhost:8000)
+if (!defined('BASE_URL')) {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+    $base = $protocol . ($_SERVER['HTTP_HOST'] ?? 'localhost') . rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '/'), '/\\') . '/';
+    define('BASE_URL', $base);
+}
+
+// Example: echo BASE_URL; // http://localhost/sms/
+
 if (!isset($conn) || !($conn instanceof mysqli)) {
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 

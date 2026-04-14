@@ -50,7 +50,7 @@ if ($teacher_result->num_rows > 0) {
                         <img src=<?=$teacher['t_ProfilePic'] ?> alt="" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                     </div>
                     <div style="position: absolute; top:10px; right:10px;">
-                        <a href="http://localhost/sms/teachers/pages/edit_profile.php">
+                        <a href="<?= BASE_URL ?>teachers/pages/edit_profile.php">
                             <i class='bx bxs-edit' style='font-size: 32px;'></i>
                         </a>
                     </div>

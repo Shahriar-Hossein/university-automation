@@ -41,7 +41,7 @@ $student_login_user_data = mysqli_fetch_assoc($student_sql);
                     <div style="width: 100px; height: 100px; border-radius: 50%; margin: 0 auto;">
                         <img src='<?= $student_login_user_data['s_Photo'] ?>' alt="" style="width: 100px; height: 100px; border-radius: 50%;">
                     </div>
-                    <div style="position: absolute; top:10px; right:10px;"><a href="http://localhost/sms/students/pages/edit_profile.php"><i class='bx bxs-edit' style='font-size: 32px;'></i></a></div>
+                    <div style="position: absolute; top:10px; right:10px;"><a href="<?= BASE_URL ?>students/pages/edit_profile.php"><i class='bx bxs-edit' style='font-size: 32px;'></i></a></div>
                     <h2 style="margin-top: 20px;;">
                         <?php echo $student_login_user_data['s_Name']; ?>
                     </h2>

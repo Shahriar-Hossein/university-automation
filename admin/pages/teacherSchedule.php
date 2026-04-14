@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../../dbconnection.php';
 
 if (!isset($_SESSION['admin_login_id'])) {
-  header('Location: http://localhost/sms/adminlogin.php');
+  header('Location: ' . BASE_URL . 'adminlogin.php');
 }
 
 // Fetch all teachers for the dropdown
