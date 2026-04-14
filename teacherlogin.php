@@ -1,34 +1,29 @@
 <?php
-session_start();
-require_once 'dbconnection.php';
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/login_handler.php';
+
+$base_url = get_base_url();
 
 if (isset($_SESSION['teacher_login_id'])) {
-    header('Location: teachers/dashboard.php');
-    exit();
+    redirect_to('teachers/dashboard.php');
 }
 
-if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $teacher_password = $_POST['password'];
+$errors = handle_login([
+    'submit_name' => 'login',
+    'post_id' => 'username',
+    'post_pw' => 'password',
+    'table' => 'teacher_db',
+    'id_col' => 't_UserName',
+    'pw_col' => 't_Password',
+    'session_key' => 'teacher_login_id',
+    'session_store_col' => 't_ID',
+    'session_extra' => ['teacher_name' => 't_Name'],
+    'redirect' => 'teachers/dashboard.php',
+    'id_not_found_message' => 'No User Found...!'
+]);
 
-    $user = mysqli_query($conn, "SELECT * FROM `teacher_db` WHERE `t_UserName` = '$username'");
-
-    if (mysqli_num_rows($user) > 0) {
-        $row = mysqli_fetch_assoc($user);
-        // print_r($row);
-        if ($row["t_Password"] == $teacher_password) {
-            $_SESSION['teacher_login_id'] = $row['t_ID'];
-            $_SESSION['teacher_name'] = $row['t_Name'];
-
-            header('Location: teachers/dashboard.php');
-            exit();
-        } else {
-            $Password_error = 'Wrong Password...!';
-        }
-    } else {
-        $user_error = 'No User Found...!';
-    }
-}
+$user_error = $errors['id'] ?? null;
+$Password_error = $errors['password'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +33,7 @@ if (isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>/styles.css">
 </head>
 
 <body>
@@ -48,13 +43,13 @@ if (isset($_POST['login'])) {
                 <div class="navlist">
                     <div class="logo">Student Management</div>
                     <ul>
-                        <li><a href="http://localhost/sms/index.php#home">Home</a></li>
-                        <li><a href="http://localhost/sms/index.php#about">About</a></li>
-                        <li><a href="http://localhost/sms/index.php#features">Notice</a></li>
-                        <li><a href="http://localhost/sms/index.php#contact">Contact</a></li>
+                        <li><a href="<?php echo $base_url; ?>/index.php#home">Home</a></li>
+                        <li><a href="<?php echo $base_url; ?>/index.php#about">About</a></li>
+                        <li><a href="<?php echo $base_url; ?>/index.php#features">Notice</a></li>
+                        <li><a href="<?php echo $base_url; ?>/index.php#contact">Contact</a></li>
                     </ul>
                     <div>
-                        <a href="loginpanel.php"><button>Login</button></a>
+                        <a href="<?php echo $base_url; ?>/loginpanel.php"><button>Login</button></a>
                     </div>
                 </div>
             </div>
@@ -62,7 +57,7 @@ if (isset($_POST['login'])) {
         <div class="banner">
             <div class="container">
                 <h1>Login as Teacher</h1>
-                <form action="" method="POST">
+                <form action="<?php echo $base_url; ?>/teacherlogin.php" method="POST">
                     <div class="loginpart" style="margin-top: 50px;">
                         <h3>Enter your username</h3>
                         <input type="text" required name="username">

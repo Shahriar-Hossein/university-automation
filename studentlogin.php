@@ -1,34 +1,28 @@
 <?php
-session_start();
-require_once 'dbconnection.php';
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/login_handler.php';
+
+$base_url = get_base_url();
 
 if (isset($_SESSION['student_login_id'])) {
-    header('Location: http://localhost/sms/students/dashboard.php');
+    redirect_to('students/dashboard.php');
 }
 
+$errors = handle_login([
+    'submit_name' => 'SLOGIN',
+    'post_id' => 'SID',
+    'post_pw' => 'SPASSWORD',
+    'table' => 'student_db',
+    'id_col' => 's_ID',
+    'pw_col' => 's_Password',
+    'session_key' => 'student_login_id',
+    'session_store_col' => 's_ID',
+    'redirect' => 'students/dashboard.php',
+    'id_not_found_message' => 'Wrong ID...!'
+]);
 
-if (isset($_POST['SLOGIN'])) {
-    $student_id = $_POST['SID'];
-    $student_password = $_POST['SPASSWORD'];
-
-    $ID_check = mysqli_query($conn, "SELECT * FROM `student_db` WHERE `s_ID` = '$student_id'");
-
-    if (mysqli_num_rows($ID_check) > 0) {
-        $row = mysqli_fetch_assoc($ID_check);
-        // print_r($row);
-        if ($row["s_Password"] == $student_password) {
-            $_SESSION['student_login_id'] = $row['s_ID'];
-
-            
-            header('Location: students/dashboard.php');
-            exit();
-        } else {
-            $Password_error = 'Wrong Password...!';
-        }
-    } else {
-        $ID_error = 'Wrong ID...!';
-    }
-}
+$ID_error = $errors['id'] ?? null;
+$Password_error = $errors['password'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +32,7 @@ if (isset($_POST['SLOGIN'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>/styles.css">
 </head>
 
 <body>
@@ -48,13 +42,13 @@ if (isset($_POST['SLOGIN'])) {
                 <div class="navlist">
                     <div class="logo">Student Management</div>
                     <ul>
-                        <li><a href="http://localhost/sms/index.php#home">Home</a></li>
-                        <li><a href="http://localhost/sms/index.php#about">About</a></li>
-                        <li><a href="http://localhost/sms/index.php#features">Notice</a></li>
-                        <li><a href="http://localhost/sms/index.php#contact">Contact</a></li>
+                        <li><a href="<?php echo $base_url; ?>/index.php#home">Home</a></li>
+                        <li><a href="<?php echo $base_url; ?>/index.php#about">About</a></li>
+                        <li><a href="<?php echo $base_url; ?>/index.php#features">Notice</a></li>
+                        <li><a href="<?php echo $base_url; ?>/index.php#contact">Contact</a></li>
                     </ul>
                     <div>
-                        <a href="loginpanel.php"><button>Login</button></a>
+                        <a href="<?php echo $base_url; ?>/loginpanel.php"><button>Login</button></a>
                     </div>
                 </div>
             </div>
@@ -62,21 +56,28 @@ if (isset($_POST['SLOGIN'])) {
         <div class="banner">
             <div class="container">
                 <h1>Login as Student</h1>
-                <form action="" method="POST">
+                <form action="<?php echo $base_url; ?>/studentlogin.php" method="POST">
                     <div class="loginpart" style="margin-top: 50px;">
                         <h3>Enter your ID</h3>
                         <input type="text" required name="SID">
-                        <span style="color: red;"><?php if (isset($ID_error)) {
-                                                        echo $ID_error;
-                                                    } ?></span>
+                        <span style="color: red;">
+                            <?php
+                            if (isset($ID_error)) {
+                                echo $ID_error;
+                            }
+                            ?>
+                        </span>
                         <h3>Enter your password</h3>
                         <input type="password" required name="SPASSWORD">
-                        <span style="color: red; padding-bottom:10px;"><?php if (isset($Password_error)) {
-                                                                            echo $Password_error;
-                                                                        } ?></span>
+                        <span style="color: red; padding-bottom:10px;">
+                            <?php
+                                if (isset($Password_error)) {
+                                    echo $Password_error;
+                                }
+                            ?>
+                        </span>
                         <div>
                             <button type="submit" name="SLOGIN">Login</button>
-
                         </div>
                     </div>
                 </form>

@@ -1,37 +1,28 @@
 <?php
-session_start();
-require_once 'dbconnection.php';
+require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/login_handler.php';
 
-// Compute a dynamic base URL so links and redirects work on any host/port/path
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ? 'https' : 'http';
-$base_path = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
-$base_url = $protocol . '://' . $_SERVER['HTTP_HOST'] . ($base_path === '' || $base_path === '/' ? '' : $base_path);
+$base_url = get_base_url();
 
-if(isset($_SESSION['admin_login_id'])){
-    header('Location: ' . $base_url . '/admin/dashboard.php');
-    exit();
+if (isset($_SESSION['admin_login_id'])) {
+    redirect_to('admin/dashboard.php');
 }
 
-if (isset($_POST['ALOGIN'])) {
-    $admin_id = $_POST['AID'];
-    $admin_password = $_POST['APASSWORD'];
+$errors = handle_login([
+    'submit_name' => 'ALOGIN',
+    'post_id' => 'AID',
+    'post_pw' => 'APASSWORD',
+    'table' => 'admin_db',
+    'id_col' => 'Id',
+    'pw_col' => 'password',
+    'session_key' => 'admin_login_id',
+    'session_store_col' => 'Id',
+    'redirect' => 'admin/dashboard.php',
+    'id_not_found_message' => 'Wrong ID...!'
+]);
 
-    $ID_check = mysqli_query($conn, "SELECT * FROM `admin_db` WHERE `Id` = '$admin_id'");
-
-    if (mysqli_num_rows($ID_check) > 0) {
-        $row = mysqli_fetch_assoc($ID_check);
-        // print_r($row);
-        if ($row["password"] == $admin_password) {
-            $_SESSION['admin_login_id'] = $row['Id'];
-            header('Location: ' . $base_url . '/admin/dashboard.php');
-            exit();
-        } else {
-            $Password_error = 'Wrong Password...!';
-        }
-    } else {
-        $ID_error = 'Wrong ID...!';
-    }
-}
+$ID_error = $errors['id'] ?? null;
+$Password_error = $errors['password'] ?? null;
 ?>
 
 <!DOCTYPE html>
