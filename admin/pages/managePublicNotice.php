@@ -41,78 +41,63 @@ if (isset($_POST['PN_Update']) && $public_notice) {
 
 
 ?>
+?>
+<?php
+    $page_title = 'Manage Public Notice ||Admin';
+    include_once __DIR__ . '/../includes/admin_page_start.php';
+?>
+<div class="dashboard_header">
+    <i class='bx bx-menu'></i>
+    <span class="text">Manage Public Notice || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+</div>
+<div class="main_workPanel">
+    <div>
+        <h3>Manage Public Notice</h3>
+    </div>
+    <div class="admin_monitor">
+        <div class="manage_admin_part">
+            <h2>Manage Public Notice</h2>
+            <div class="table-group">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Notice Date</th>
+                            <th>Notice Title</th>
+                            <th>Message</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $all_publicNotice = mysqli_query($conn, "SELECT * FROM `public_notice_db`");
+                        $serial_no = 1;
+                        while ($row = mysqli_fetch_assoc($all_publicNotice)) {
+                        ?>
 
-<!DOCTYPE html>
-<html lang="en">
+                            <tr>
+                                <td><?php echo $serial_no++; ?></td>
+                                <td><?php echo  date('d-M-Y', strtotime($row['pn_date'])); ?></td>
+                                <td><?php echo $row['pn_title']; ?></td>
+                                <td><?php echo $row['pn_message']; ?></td>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Public Notice ||Admin</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="website icon" type="png" href="../images/weblogo.png">
-    <link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-</head>
+                                <td style="display:flex">
+                                    <a href="javascript:void(0);" onclick="openModal('<?= base64_encode($row['pn_id'])?>')" class="action-view">👁️</a>
+                                    <p> / </p>
+                                    <a href="javascript:void(0);" onclick="confirmDelete('<?= base64_encode($row['pn_id']); ?>', '<?= addslashes($row['pn_title']); ?>')" class="action-delete"> 🗑️</a>
+                                </td>
+                            </tr>
 
-<body>
-    <?php include_once('../includes/sidebar.php'); ?>
-    <section class="home-section">
-        <div class="home-content">
-            <div class="dashboard_header">
-                <i class='bx bx-menu'></i>
-                <span class="text">Manage Public Notice || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
-            </div>
-            <div class="main_workPanel">
-                <div>
-                    <h3>Manage Public Notice</h3>
-                </div>
-                <div class="admin_monitor">
-                    <div class="manage_admin_part">
-                        <h2>Manage Public Notice</h2>
-                        <div class="table-group">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>S.No</th>
-                                        <th>Notice Date</th>
-                                        <th>Notice Title</th>
-                                        <th>Message</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $all_publicNotice = mysqli_query($conn, "SELECT * FROM `public_notice_db`");
-                                    $serial_no = 1;
-                                    while ($row = mysqli_fetch_assoc($all_publicNotice)) {
-                                    ?>
-
-                                        <tr>
-                                            <td><?php echo $serial_no++; ?></td>
-                                            <td><?php echo  date('d-M-Y', strtotime($row['pn_date'])); ?></td>
-                                            <td><?php echo $row['pn_title']; ?></td>
-                                            <td><?php echo $row['pn_message']; ?></td>
-
-                                            <td style="display:flex">
-                                                <a href="javascript:void(0);" onclick="openModal('<?= base64_encode($row['pn_id'])?>')" class="action-view">👁️</a>
-                                                <p> / </p>
-                                                <a href="javascript:void(0);" onclick="confirmDelete('<?= base64_encode($row['pn_id']); ?>', '<?= addslashes($row['pn_title']); ?>')" class="action-delete"> 🗑️</a>
-                                            </td>
-                                        </tr>
-
-                                    <?php
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </section>
+    </div>
+
+</div>
 
 
     <!-- Modal Structure -->
@@ -180,6 +165,5 @@ if (isset($_POST['PN_Update']) && $public_notice) {
             document.getElementById('modalOverlay').style.display = 'none';
         });
     </script>
-</body>
 
-</html>
+<?php include_once __DIR__ . '/../includes/admin_page_end.php'; ?>

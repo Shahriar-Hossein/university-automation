@@ -55,72 +55,58 @@ if (isset($_POST['T_Update'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+?>
+<?php
+    $page_title = 'Manage Teachers ||Admin';
+    include_once __DIR__ . '/../includes/admin_page_start.php';
+?>
+<div class="dashboard_header">
+  <i class='bx bx-menu'></i>
+  <span class="text">Manage Teachers || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+</div>
+<div class="main_workPanel">
+  <div>
+    <h3>Manage Teacher</h3>
+  </div>
+  <div class="admin_monitor">
+    <div class="manage_admin_part">
+      <h2>Manage Teacher</h2>
+      <div class="table-group">
+        <table>
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Teacher Name</th>
+              <th>Teacher Department</th>
+              <th>Teacher Email</th>
+              <th>Contact No.</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- PHP LOOP START -->
+            <?php foreach ($teachers as $index => $teacher) : ?>
+              <tr>
+                <td><?= $index + 1; ?></td>
+                <td><?= $teacher['t_Name']; ?></td>
+                <td><?= $teacher['t_department']; ?></td>
+                <td><?= $teacher['t_Email']; ?></td>
+                <td><?= $teacher['t_ContactNo']; ?></td>
+                <td style="display:flex">
+                <a href="javascript:void(0);" onclick="openModal('<?= base64_encode($teacher['t_ID'] ) ?>')" class="action-view">👁️</a>
+                  <p> / </p>
+                  <a href="javascript:void(0);" onclick="confirmDelete('<?= base64_encode($teacher['t_ID']); ?>', '<?= addslashes($teacher['t_Name']); ?>')" class="action-delete"> 🗑️</a>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+            <!-- PHP LOOP END -->
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Teachers ||Admin</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="website icon" type="png" href="../images/weblogo.png">
-  <link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-</head>
-
-<body>
-  <?php include_once('../includes/sidebar.php'); ?>
-  <section class="home-section">
-    <div class="home-content">
-      <div class="dashboard_header">
-        <i class='bx bx-menu'></i>
-        <span class="text">Manage Teachers || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
-      </div>
-      <div class="main_workPanel">
-        <div>
-          <h3>Manage Teacher</h3>
-        </div>
-        <div class="admin_monitor">
-          <div class="manage_admin_part">
-            <h2>Manage Teacher</h2>
-            <div class="table-group">
-              <table>
-                <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>Teacher Name</th>
-                    <th>Teacher Department</th>
-                    <th>Teacher Email</th>
-                    <th>Contact No.</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- PHP LOOP START -->
-                  <?php foreach ($teachers as $index => $teacher) : ?>
-                    <tr>
-                      <td><?= $index + 1; ?></td>
-                      <td><?= $teacher['t_Name']; ?></td>
-                      <td><?= $teacher['t_department']; ?></td>
-                      <td><?= $teacher['t_Email']; ?></td>
-                      <td><?= $teacher['t_ContactNo']; ?></td>
-                      <td style="display:flex">
-                      <a href="javascript:void(0);" onclick="openModal('<?= base64_encode($teacher['t_ID'] ) ?>')" class="action-view">👁️</a>
-                        <p> / </p>
-                        <a href="javascript:void(0);" onclick="confirmDelete('<?= base64_encode($teacher['t_ID']); ?>', '<?= addslashes($teacher['t_Name']); ?>')" class="action-delete"> 🗑️</a>
-                      </td>
-                    </tr>
-                  <?php endforeach; ?>
-                  <!-- PHP LOOP END -->
-
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
     </div>
-  </section>
+  </div>
+</div>
 
   <div id="popup" class="modal" style="display:<?= isset($teacher_information) ? 'block' : 'none'; ?>; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0, 0, 0, 0.5); z-index:999;">
     <div class="modal-content" style="position:relative; display:flex; justify-content:center; align-items:center; height:100%;">
@@ -231,6 +217,5 @@ if (isset($_POST['T_Update'])) {
       document.getElementById('modalOverlay').style.display = 'none';
     });
   </script>
-</body>
 
-</html>
+<?php include_once __DIR__ . '/../includes/admin_page_end.php'; ?>

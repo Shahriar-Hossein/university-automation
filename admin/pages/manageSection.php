@@ -161,153 +161,136 @@ if (isset($_POST['create_section'])) {
 //$conn->close();
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Section ||Admin</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="website icon" type="png" href="../images/weblogo.png">
-  <link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-</head>
-
-<body>
-  <?php include_once('../includes/sidebar.php'); ?>
-  <section class="home-section" style="height: 1100px;">
-    <div class="home-content">
-      <div class="dashboard_header">
-        <i class='bx bx-menu'></i>
-        <span class="text">Manage Section || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
-      </div>
-      <div style="display: flex; justify-content: center;">
-        <div class="admin_monitor_add">
-          <h2>Manage Section</h2>
-          <div class="form-group">
-            <label for="course">Course</label>
-            <form action="manageSection.php" method="GET">
-              <select id="course" name="course" onChange="this.form.submit()" required>
-                <option value="" disabled selected>Select Course</option>
-                <?php
-                foreach ($courses as $course) {
-                  $selected = isset($_GET['course']) && $_GET['course'] == $course['c_ID'] ? 'selected' : '';
-                  echo '<option value="' . $course['c_ID'] . '" ' . $selected . '>' . $course['c_title'] . '</option>';
-                }
-                ?>
-              </select>
-            </form>
-          </div>
-          <form class="form" action="" method="POST">
-
-            <div class="form-group">
-              <label for="teacher">Teacher</label>
-              <select id="teacher" name="teacher" required>
-                <option value="" disabled selected>Choose Teacher</option>
-                <?php
-                foreach ($teachers as $teacher) {
-                  echo '
-                    <option value="' . $teacher['t_ID'] . '" >' . $teacher['t_Name'] . ' </option>
-                  ';
-                }
-                ?>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="section">Section</label>
-              <select id="section" name="section">
-                <option value="" disabled selected>Section name will be automatically assigned</option>
-              </select>
-            </div>
-
-            <p>Select Time</p>
-            <div class="form-group">
-              <label for="time">Time</label>
-              <select id="time" name="time" required>
-                <option value="" disabled selected>Choose Time</option>
-                <?php
-                foreach ($time_options as $time) {
-                  echo '
-                    <option value="' . $time . '" >' . $time . ' </option>
-                  ';
-                }
-                ?>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="room">Room No</label>
-              <select id="room" name="room" required>
-                <option value="" disabled selected>Choose Room</option>
-                <?php
-                foreach ($rooms as $room) :
-                ?>
-                  <option value=<?= $room['id'] ?>> <?= $room['room_no'] ?> (<?= $room['name'] ?> )</option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="schedule">Schedule</label>
-
-              <div class="form-group checkbox-group">
-                <?php
-                foreach ($day_options as $day) {
-                  echo '
-                    <div class="checkbox_align">
-                      <label><input type="checkbox" name="days[]" value="' . $day . '">
-                        <p style="width: 200px;">' . $day . '</p>
-                      </label>
-                    </div>
-                  ';
-                }
-                ?>
-              </div>
-            </div>
-
-
-            <button style="text-align: center; width: 400px" type="submit" name="create_section" class="add-button">Submit</button>
-
-          </form>
-        </div>
-
-        <div class="admin_monitor_add">
-          <h2>Live Schedule</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Day</th>
-                <th>Section</th>
-                <th>Time</th>
-                <th>Room No</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php if (!empty($sorted_schedules)) : ?>
-                <?php foreach ($sorted_schedules as $schedule) : ?>
-                  <tr>
-                    <td><?= $schedule['day'] ?></td>
-                    <td><?= $schedule['section'] ?></td>
-                    <td><?= $schedule['time'] ?></td>
-                    <td><?= $schedule['room'] ?? "unassigned" ?></td>
-                    <td><a href="#" class="action-delete">🗑️</a></td>
-                  </tr>
-                <?php endforeach; ?>
-              <?php else : ?>
-                <tr>
-                  <td colspan="4">No schedule available for this course</td>
-                </tr>
-              <?php endif; ?>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
+?>
+<?php
+    $page_title = 'Manage Section ||Admin';
+    include_once __DIR__ . '/../includes/admin_page_start.php';
+?>
+<div class="dashboard_header">
+  <i class='bx bx-menu'></i>
+  <span class="text">Manage Section || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+</div>
+<div style="display: flex; justify-content: center;">
+  <div class="admin_monitor_add">
+    <h2>Manage Section</h2>
+    <div class="form-group">
+      <label for="course">Course</label>
+      <form action="manageSection.php" method="GET">
+        <select id="course" name="course" onChange="this.form.submit()" required>
+          <option value="" disabled selected>Select Course</option>
+          <?php
+          foreach ($courses as $course) {
+            $selected = isset($_GET['course']) && $_GET['course'] == $course['c_ID'] ? 'selected' : '';
+            echo '<option value="' . $course['c_ID'] . '" ' . $selected . '>' . $course['c_title'] . '</option>';
+          }
+          ?>
+        </select>
+      </form>
     </div>
-  </section>
-  <script src="../js/script.js"></script>
-</body>
+    <form class="form" action="" method="POST">
 
-</html>
+      <div class="form-group">
+        <label for="teacher">Teacher</label>
+        <select id="teacher" name="teacher" required>
+          <option value="" disabled selected>Choose Teacher</option>
+          <?php
+          foreach ($teachers as $teacher) {
+            echo '
+              <option value="' . $teacher['t_ID'] . '" >' . $teacher['t_Name'] . ' </option>
+            ';
+          }
+          ?>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="section">Section</label>
+        <select id="section" name="section">
+          <option value="" disabled selected>Section name will be automatically assigned</option>
+        </select>
+      </div>
+
+      <p>Select Time</p>
+      <div class="form-group">
+        <label for="time">Time</label>
+        <select id="time" name="time" required>
+          <option value="" disabled selected>Choose Time</option>
+          <?php
+          foreach ($time_options as $time) {
+            echo '
+              <option value="' . $time . '" >' . $time . ' </option>
+            ';
+          }
+          ?>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="room">Room No</label>
+        <select id="room" name="room" required>
+          <option value="" disabled selected>Choose Room</option>
+          <?php
+          foreach ($rooms as $room) :
+          ?>
+            <option value=<?= $room['id'] ?>> <?= $room['room_no'] ?> (<?= $room['name'] ?> )</option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="schedule">Schedule</label>
+
+        <div class="form-group checkbox-group">
+          <?php
+          foreach ($day_options as $day) {
+            echo '
+              <div class="checkbox_align">
+                <label><input type="checkbox" name="days[]" value="' . $day . '">
+                  <p style="width: 200px;">' . $day . '</p>
+                </label>
+              </div>
+            ';
+          }
+          ?>
+        </div>
+      </div>
+
+
+      <button style="text-align: center; width: 400px" type="submit" name="create_section" class="add-button">Submit</button>
+
+    </form>
+  </div>
+
+  <div class="admin_monitor_add">
+    <h2>Live Schedule</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Section</th>
+          <th>Time</th>
+          <th>Room No</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php if (!empty($sorted_schedules)) : ?>
+          <?php foreach ($sorted_schedules as $schedule) : ?>
+            <tr>
+              <td><?= $schedule['day'] ?></td>
+              <td><?= $schedule['section'] ?></td>
+              <td><?= $schedule['time'] ?></td>
+              <td><?= $schedule['room'] ?? "unassigned" ?></td>
+              <td><a href="#" class="action-delete">🗑️</a></td>
+            </tr>
+          <?php endforeach; ?>
+        <?php else : ?>
+          <tr>
+            <td colspan="4">No schedule available for this course</td>
+          </tr>
+        <?php endif; ?>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<?php include_once __DIR__ . '/../includes/admin_page_end.php'; ?>

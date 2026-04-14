@@ -37,101 +37,83 @@ if (isset($_POST['SRegistration'])) {
 
 ?>
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Students ||Admin</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-    <link rel="website icon" type="png" href="../images/weblogo.png">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-</head>
-
-<body>
-    <?php include_once('../includes/sidebar.php'); ?>
-    <section class="home-section" style="height: 1500px;">
-        <div class="home-content">
-            <div class="dashboard_header">
-                <i class='bx bx-menu'></i>
-                <span class="text">Add Students || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+?>
+<?php
+    $page_title = 'Add Students ||Admin';
+    include_once __DIR__ . '/../includes/admin_page_start.php';
+?>
+<div class="dashboard_header">
+    <i class='bx bx-menu'></i>
+    <span class="text">Add Students || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+</div>
+<div class="main_workPanel" style="padding-bottom: 30px">
+    <div class="main_workPanel_header">
+        <h3>Add Students</h3>
+    </div>
+    <div class="admin_monitor_add" style="margin: 0 auto;">
+        <form class="form" action="" method="POST">
+            <h2>Add Students</h2>
+            <div class="form-group">
+                <label for="student-name">Student Name</label>
+                <input type="text" id="student_name" name="student_name" required>
             </div>
-            <div class="main_workPanel" style="padding-bottom: 30px">
-                <div class="main_workPanel_header">
-                    <h3>Add Students</h3>
-                </div>
-                <div class="admin_monitor_add" style="margin: 0 auto;">
-                    <form class="form" action="" method="POST">
-                        <h2>Add Students</h2>
-                        <div class="form-group">
-                            <label for="student-name">Student Name</label>
-                            <input type="text" id="student_name" name="student_name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="student-email">Student Email</label>
-                            <input type="email" id="student_email" name="student_email" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="gender">Gender</label>
-                            <select id="gender" name="student_gender" required>
-                                <option value="" disabled selected>Choose Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="dob">Date of Birth</label>
-                            <input type="date" id="student_dob" name="student_dob" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="student-photo">Student Photo</label>
-                            <input type="file" id="student_photo" name="student_photo" accept="image/*">
-                        </div>
-                        <h3>Parents/Guardian's details</h3>
-                        <div class="form-group">
-                            <label for="father-name">Father's Name</label>
-                            <input type="text" id="sFather_name" name="sFather_name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="mother-name">Mother's Name</label>
-                            <input type="text" id="sMother_name" name="sMother_name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contact-number">Contact Number</label>
-                            <input type="text" id="sContact_number" name="sContact_number" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="sAltContact-number">Alternate Contact Number</label>
-                            <input type="text" id="sAltContact_number" name="sAltContact_number">
-                        </div>
-                        <div class="form-group">
-                            <label for="sAddress">Address</label>
-                            <input type="text" id="sAddress" name="sAddress" required>
-                        </div>
-                        <h3>Login details</h3>
-                        <div class="form-group">
-                            <label for="user-name">User Name</label>
-                            <input type="text" id="sUser_name" name="sUser_name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="sPassword" name="sPassword" required>
-                        </div>
-                        <button type="submit" name="SRegistration" style="text-align: center; width: 400px" class="add-button">Add</button>
-                    </form>
-                </div>
+            <div class="form-group">
+                <label for="student-email">Student Email</label>
+                <input type="email" id="student_email" name="student_email" required>
             </div>
-        </div>
-    </section>
-    <script src="../js/script.js"></script>
 
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="student_gender" required>
+                    <option value="" disabled selected>Choose Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="student_dob" name="student_dob" required>
+            </div>
+
+            <div class="form-group">
+                <label for="student-photo">Student Photo</label>
+                <input type="file" id="student_photo" name="student_photo" accept="image/*">
+            </div>
+            <h3>Parents/Guardian's details</h3>
+            <div class="form-group">
+                <label for="father-name">Father's Name</label>
+                <input type="text" id="sFather_name" name="sFather_name" required>
+            </div>
+            <div class="form-group">
+                <label for="mother-name">Mother's Name</label>
+                <input type="text" id="sMother_name" name="sMother_name" required>
+            </div>
+            <div class="form-group">
+                <label for="contact-number">Contact Number</label>
+                <input type="text" id="sContact_number" name="sContact_number" required>
+            </div>
+            <div class="form-group">
+                <label for="sAltContact-number">Alternate Contact Number</label>
+                <input type="text" id="sAltContact_number" name="sAltContact_number">
+            </div>
+            <div class="form-group">
+                <label for="sAddress">Address</label>
+                <input type="text" id="sAddress" name="sAddress" required>
+            </div>
+            <h3>Login details</h3>
+            <div class="form-group">
+                <label for="user-name">User Name</label>
+                <input type="text" id="sUser_name" name="sUser_name" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="sPassword" name="sPassword" required>
+            </div>
+            <button type="submit" name="SRegistration" style="text-align: center; width: 400px" class="add-button">Add</button>
+        </form>
+    </div>
+</div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var dateInput = document.querySelector('input[name="student_dob"]');
@@ -140,6 +122,4 @@ if (isset($_POST['SRegistration'])) {
         });
     </script>
 
-</body>
-
-</html>
+<?php include_once __DIR__ . '/../includes/admin_page_end.php'; ?>

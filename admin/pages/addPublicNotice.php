@@ -19,49 +19,29 @@ if(isset($_POST['submitMsg'])){
 
 
 ?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Public Notes ||Admin</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="website icon" type="png" href="../images/weblogo.png">
-
-<link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-</head>
-
-<body>
-    <?php include_once('../includes/sidebar.php'); ?>
-    <section class="home-section">
-        <div class="home-content">
-            <div class="dashboard_header">
-                <i class='bx bx-menu'></i>
-                <span class="text">Add Public Notice || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+?>
+<?php
+    $page_title = 'Add Public Notes ||Admin';
+    include_once __DIR__ . '/../includes/admin_page_start.php';
+?>
+<div class="dashboard_header">
+    <i class='bx bx-menu'></i>
+    <span class="text">Add Public Notice || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+</div>
+<div class="admin_monitor_add" style="margin: 0 auto;">
+        <form class="form" action="" method="POST">
+            <h2>Add Public Notice</h2>
+            <div class="form-group">
+                <label for="pubnotice-title">Public Notice Title</label>
+                <input type="text" id="pubnotice-title" name="pubnotice_title" required style="margin: 0 auto;">
             </div>
-            <div class="admin_monitor_add" style="margin: 0 auto;">
-                    <form class="form" action="" method="POST">
-                        <h2>Add Public Notice</h2>
-                        <div class="form-group">
-                            <label for="pubnotice-title">Public Notice Title</label>
-                            <input type="text" id="pubnotice-title" name="pubnotice_title" required style="margin: 0 auto;">
-                        </div>
-                        <div class="form-group">
-                            <label for="pubnotice-msg">Public Notice Message</label>
-                            <textarea name="notmsg" value="" class="notice-msgTxt" required='true'></textarea>
-                        </div>
+            <div class="form-group">
+                <label for="pubnotice-msg">Public Notice Message</label>
+                <textarea name="notmsg" value="" class="notice-msgTxt" required='true'></textarea>
+            </div>
 
-                        <button style="text-align: center; width: 400px" type="submit" class="add-button" name="submitMsg">Add Public Notice</button>
+            <button style="text-align: center; width: 400px" type="submit" class="add-button" name="submitMsg">Add Public Notice</button>
 
-                    </form>
-                </div>
-        </div>
-    </section>
-    <script src="../js/script.js"></script>
-</body>
-
-</html>
+        </form>
+    </div>
+<?php include_once __DIR__ . '/../includes/admin_page_end.php'; ?>

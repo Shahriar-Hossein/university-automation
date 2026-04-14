@@ -53,97 +53,82 @@ if (isset($_POST['course_id']) && isset($_POST['section'])) {
     }
 }
 ?>
+?>
+<?php
+    $page_title = 'Course Schedule || Admin';
+    include_once __DIR__ . '/../includes/admin_page_start.php';
+?>
+<div class="dashboard_header">
+    <i class='bx bx-menu'></i>
+    <span class="text">Course Schedule || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+</div>
+<div class="main_workPanel">
+    <div>
+        <h3>Course Schedule</h3>
+    </div>
 
-<!DOCTYPE html>
-<html lang="en">
+    <div class="form-group">
+        <form action="" method="POST" id="course-form">
+            <label for="course_id">Course</label>
+            <select id="course_id" name="course_id" onchange="this.form.submit()" required>
+                <option value="" disabled selected>Select Course</option>
+                <?php foreach ($courses as $course) : ?>
+                    <option value="<?= $course['c_ID'] ?>" <?= isset($_POST['course_id']) && $_POST['course_id'] == $course['c_ID'] ? 'selected' : '' ?>>
+                        <?= $course['c_title'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Schedule || Admin</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="website icon" type="png" href="../images/weblogo.png">
-    <link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-</head>
+            <?php if (!empty($sections)) : ?>
+                <label for="section">Section</label>
+                <select id="section" name="section" onchange="this.form.submit()" required>
+                    <option value="" disabled selected>Select Section</option>
+                    <?php foreach ($sections as $section) : ?>
+                        <option value="<?= $section ?>" <?= isset($_POST['section']) && $_POST['section'] == $section ? 'selected' : '' ?>>
+                            <?= $section ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            <?php endif; ?>
+        </form>
+    </div>
 
-<body>
-    <?php include_once('../includes/sidebar.php'); ?>
-    <section class="home-section">
-        <div class="home-content">
-            <div class="dashboard_header">
-                <i class='bx bx-menu'></i>
-                <span class="text">Course Schedule || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
-            </div>
-            <div class="main_workPanel">
-                <div>
-                    <h3>Course Schedule</h3>
-                </div>
-
-                <div class="form-group">
-                    <form action="" method="POST" id="course-form">
-                        <label for="course_id">Course</label>
-                        <select id="course_id" name="course_id" onchange="this.form.submit()" required>
-                            <option value="" disabled selected>Select Course</option>
-                            <?php foreach ($courses as $course) : ?>
-                                <option value="<?= $course['c_ID'] ?>" <?= isset($_POST['course_id']) && $_POST['course_id'] == $course['c_ID'] ? 'selected' : '' ?>>
-                                    <?= $course['c_title'] ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-
-                        <?php if (!empty($sections)) : ?>
-                            <label for="section">Section</label>
-                            <select id="section" name="section" onchange="this.form.submit()" required>
-                                <option value="" disabled selected>Select Section</option>
-                                <?php foreach ($sections as $section) : ?>
-                                    <option value="<?= $section ?>" <?= isset($_POST['section']) && $_POST['section'] == $section ? 'selected' : '' ?>>
-                                        <?= $section ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        <?php endif; ?>
-                    </form>
-                </div>
-
-                <div class="admin_monitor">
-                    <div class="manage_admin_part">
-                        <h2>Course Schedule</h2>
-                        <!-- <button onclick="downloadSchedule()" style="margin-bottom: 20px; padding: 10px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Download / Print Schedule</button> -->
-                        <div class="table-group">
-                            <table id="scheduleTable">
-                                <thead>
+    <div class="admin_monitor">
+        <div class="manage_admin_part">
+            <h2>Course Schedule</h2>
+            <!-- <button onclick="downloadSchedule()" style="margin-bottom: 20px; padding: 10px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Download / Print Schedule</button> -->
+            <div class="table-group">
+                <table id="scheduleTable">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Time</th>
+                            <th>Room No.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($schedule)) : ?>
+                            <?php foreach ($schedule as $day => $entries) : ?>
+                                <?php foreach ($entries as $entry) : ?>
                                     <tr>
-                                        <th>Day</th>
-                                        <th>Time</th>
-                                        <th>Room No.</th>
+                                        <td><?= htmlspecialchars($day) ?></td>
+                                        <td><?= htmlspecialchars($entry['time']) ?></td>
+                                        <td><?= htmlspecialchars($entry['room']) ?></td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if (!empty($schedule)) : ?>
-                                        <?php foreach ($schedule as $day => $entries) : ?>
-                                            <?php foreach ($entries as $entry) : ?>
-                                                <tr>
-                                                    <td><?= htmlspecialchars($day) ?></td>
-                                                    <td><?= htmlspecialchars($entry['time']) ?></td>
-                                                    <td><?= htmlspecialchars($entry['room']) ?></td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        <?php endforeach; ?>
-                                    <?php else : ?>
-                                        <tr>
-                                            <td colspan="3">No schedule available for this course and section</td>
-                                        </tr>
-                                    <?php endif; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <tr>
+                                <td colspan="3">No schedule available for this course and section</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </section>
+    </div>
+
+</div>
 
     <script src="../js/script.js"></script>
     <script>
@@ -202,7 +187,6 @@ if (isset($_POST['course_id']) && isset($_POST['section'])) {
 }
 
 
-  </script>
-</body>
+    </script>
 
-</html>
+<?php include_once __DIR__ . '/../includes/admin_page_end.php'; ?>

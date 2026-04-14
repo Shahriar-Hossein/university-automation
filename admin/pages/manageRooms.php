@@ -59,71 +59,56 @@ if (isset($_POST['Room_Update']) && isset($_GET['edit_id'])) {
 
 
 ?>
+?>
+<?php
+    $page_title = 'Manage Rooms ||Admin';
+    include_once __DIR__ . '/../includes/admin_page_start.php';
+?>
+<div class="dashboard_header">
+    <i class='bx bx-menu'></i>
+    <span class="text">Manage Rooms || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+</div>
+<div class="main_workPanel">
+    <div class="main_workPanel_header">
+        <h3>Manage Rooms</h3>
+    </div>
+    <div class="admin_monitor_manage">
+        <div class="manage_admin_part">
+            <h2>All Rooms</h2>
+            <div class="table-group">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Room No</th>
+                            <th>Room Name</th>
+                            <th>Room Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
 
-<!DOCTYPE html>
-<html lang="en">
+                    <tbody>
+                    <?php foreach ($rooms as $index => $room_data) :    ?>
+                        <tr>
+                            <td><?= $index+1; ?></td>
+                            <td><?= $room_data['room_no']; ?></td>
+                            <td><?= $room_data['name']; ?></td>
+                            <td><?= $room_data['description']; ?></td>
+                            <td style="display:flex">
+                                <a href="javascript:void(0);" onclick="openModal('<?= base64_encode($room_data['id'] ) ?>')" class="action-view">👁️</a>
+                                <p> / </p>
+                                <a href="javascript:void(0);" onclick="confirmDelete('<?= base64_encode($room_data['id']) ?>', '<?= addslashes($room_data['room_no']); ?>')" class="action-delete"> 🗑️</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Course ||Admin</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-    <link rel="website icon" type="png" href="../images/weblogo.png">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-</head>
-
-<body>
-<?php include_once('../includes/sidebar.php'); ?>
-<section class="home-section">
-    <div class="home-content">
-        <div class="dashboard_header">
-            <i class='bx bx-menu'></i>
-            <span class="text">Manage Rooms || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
-        </div>
-        <div class="main_workPanel">
-            <div class="main_workPanel_header">
-                <h3>Manage Rooms</h3>
+                </table>
             </div>
-            <div class="admin_monitor_manage">
-                <div class="manage_admin_part">
-                    <h2>All Rooms</h2>
-                    <div class="table-group">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Room No</th>
-                                    <th>Room Name</th>
-                                    <th>Room Description</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                            <?php foreach ($rooms as $index => $room_data) :    ?>
-                                <tr>
-                                    <td><?= $index+1; ?></td>
-                                    <td><?= $room_data['room_no']; ?></td>
-                                    <td><?= $room_data['name']; ?></td>
-                                    <td><?= $room_data['description']; ?></td>
-                                    <td style="display:flex">
-                                        <a href="javascript:void(0);" onclick="openModal('<?= base64_encode($room_data['id'] ) ?>')" class="action-view">👁️</a>
-                                        <p> / </p>
-                                        <a href="javascript:void(0);" onclick="confirmDelete('<?= base64_encode($room_data['id']) ?>', '<?= addslashes($room_data['room_no']); ?>')" class="action-delete"> 🗑️</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
-</section>
+</div>
+
 
 <!-- Modal Structure -->
 <div id="popup" class="modal" style="display:<?= isset($room) ? 'block' : 'none'; ?>; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0, 0, 0, 0.5); z-index:999;">
@@ -193,6 +178,4 @@ if (isset($_POST['Room_Update']) && isset($_GET['edit_id'])) {
     });
 </script>
 
-</body>
-
-</html>
+<?php include_once __DIR__ . '/../includes/admin_page_end.php'; ?>

@@ -47,85 +47,70 @@ if (isset($_POST['teacher_id'])) {
   }
 }
 ?>
+?>
+<?php
+    $page_title = 'Teacher Schedule || Admin';
+    include_once __DIR__ . '/../includes/admin_page_start.php';
+?>
+<div class="dashboard_header">
+  <i class='bx bx-menu'></i>
+  <span class="text">Teacher Schedule || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+</div>
+<div class="main_workPanel">
+  <div>
+    <h3>Teacher Schedule</h3>
+  </div>
 
-<!DOCTYPE html>
-<html lang="en">
+  <div class="form-group">
+    <form action="" method="POST">
+      <label for="teacher_id">Teacher</label>
+      <select id="teacher_id" name="teacher_id" onchange="this.form.submit()" required>
+        <option value="" disabled selected>Choose Teacher</option>
+        <?php foreach ($teachers as $teacher) : ?>
+          <option value="<?= $teacher['t_ID'] ?>" <?= isset($_POST['teacher_id']) && $_POST['teacher_id'] == $teacher['t_ID'] ? 'selected' : '' ?>>
+            <?= $teacher['t_Name'] ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
+    </form>
+  </div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teacher Schedule || Admin</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="website icon" type="png" href="../images/weblogo.png">
-  <link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-</head>
-
-<body>
-  <?php include_once('../includes/sidebar.php'); ?>
-  <section class="home-section">
-    <div class="home-content">
-      <div class="dashboard_header">
-        <i class='bx bx-menu'></i>
-        <span class="text">Teacher Schedule || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
-      </div>
-      <div class="main_workPanel">
-        <div>
-          <h3>Teacher Schedule</h3>
-        </div>
-
-        <div class="form-group">
-          <form action="" method="POST">
-            <label for="teacher_id">Teacher</label>
-            <select id="teacher_id" name="teacher_id" onchange="this.form.submit()" required>
-              <option value="" disabled selected>Choose Teacher</option>
-              <?php foreach ($teachers as $teacher) : ?>
-                <option value="<?= $teacher['t_ID'] ?>" <?= isset($_POST['teacher_id']) && $_POST['teacher_id'] == $teacher['t_ID'] ? 'selected' : '' ?>>
-                  <?= $teacher['t_Name'] ?>
-                </option>
-              <?php endforeach; ?>
-            </select>
-          </form>
-        </div>
-
-        <div class="admin_monitor">
-          <div class="manage_admin_part">
-            <h2>Schedule</h2>
-            <button onclick="downloadSchedule()" style="margin-bottom: 20px; padding: 10px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Download / Print Schedule</button>
-            <div class="table-group">
-              <?php foreach ($schedule_by_days as $day => $entries) : ?>
-                <?php if (!empty($entries)) : ?>
-                  <h3><?= $day ?></h3>
-                  <table id="scheduleTable">
-                    <thead>
-                      <tr>
-                        <th>S.No</th>
-                        <th>Time</th>
-                        <th>Course</th>
-                        <th>Section</th>
-                        <th>Room No.</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($entries as $index => $entry) : ?>
-                        <tr>
-                          <td><?= $index + 1 ?></td>
-                          <td><?= htmlspecialchars($entry['time']) ?></td>
-                          <td><?= htmlspecialchars($entry['course']) ?></td>
-                          <td><?= htmlspecialchars($entry['section']) ?></td>
-                          <td><?= htmlspecialchars($entry['room']) ?></td>
-                        </tr>
-                      <?php endforeach; ?>
-                    </tbody>
-                  </table>
-                <?php endif; ?>
-              <?php endforeach; ?>
-            </div>
-          </div>
-        </div>
+  <div class="admin_monitor">
+    <div class="manage_admin_part">
+      <h2>Schedule</h2>
+      <button onclick="downloadSchedule()" style="margin-bottom: 20px; padding: 10px 15px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Download / Print Schedule</button>
+      <div class="table-group">
+        <?php foreach ($schedule_by_days as $day => $entries) : ?>
+          <?php if (!empty($entries)) : ?>
+            <h3><?= $day ?></h3>
+            <table id="scheduleTable">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Time</th>
+                  <th>Course</th>
+                  <th>Section</th>
+                  <th>Room No.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($entries as $index => $entry) : ?>
+                  <tr>
+                    <td><?= $index + 1 ?></td>
+                    <td><?= htmlspecialchars($entry['time']) ?></td>
+                    <td><?= htmlspecialchars($entry['course']) ?></td>
+                    <td><?= htmlspecialchars($entry['section']) ?></td>
+                    <td><?= htmlspecialchars($entry['room']) ?></td>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          <?php endif; ?>
+        <?php endforeach; ?>
       </div>
     </div>
-  </section>
+  </div>
+</div>
 
   <script src="../js/script.js"></script>
   <script>
@@ -171,6 +156,5 @@ if (isset($_POST['teacher_id'])) {
 }
 
   </script>
-</body>
 
-</html>
+<?php include_once __DIR__ . '/../includes/admin_page_end.php'; ?>

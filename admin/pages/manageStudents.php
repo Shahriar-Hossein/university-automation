@@ -51,82 +51,66 @@ if (isset($_POST['S_Update'])) {
     }
 }
 ?>
+?>
+<?php
+    $page_title = 'Manage Students ||Admin';
+    include_once __DIR__ . '/../includes/admin_page_start.php';
+?>
+<div class="dashboard_header">
+    <i class='bx bx-menu'></i>
+    <span class="text">Manage Students || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+</div>
+<div class="main_workPanel">
+    <div style="display: flex; justify-content:space-between; align-items:center;">
+        <h3>Manage Students</h3>
+        <input type="text" id="searchInput" placeholder="Search by student name..." style="margin-bottom: 10px; padding: 8px; width: 300px; border-radius:15px; border: 1px solid #4637bb90;">
+    </div>
+    <div class="admin_monitor">
+        <div class="manage_admin_part">
+            <h2>Manage Students</h2>
+            <div class="table-group">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Student ID</th>
+                            <th>Student Name</th>
+                            <th>Student Email</th>
+                            <th>Contact No.</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTableBody">
+                        <?php
+                        $all_students = mysqli_query($conn, "SELECT * FROM `student_db`");
+                        $serial_no = 1;
+                        while ($row = mysqli_fetch_assoc($all_students)) {
+                        ?>
 
-<!DOCTYPE html>
-<html lang="en">
+                            <tr>
+                                <td><?php echo $serial_no++; ?></td>
+                                <td><?php echo $row['s_ID']; ?></td>
+                                <td><?php echo $row['s_Name']; ?></td>
+                                <td><?php echo $row['s_Email']; ?></td>
+                                <td><?php echo $row['s_ContactNo']; ?></td>
+                                <td style="display:flex">
+                                    <a href="javascript:void(0);" onclick="openModal('<?= base64_encode($row['s_ID']); ?>')" class="action-view">👁️</a>
+                                    <p> / </p>
+                                    <a href="javascript:void(0);" onclick="confirmDelete('<?= base64_encode($row['s_ID']); ?>', '<?= addslashes($row['s_Name']); ?>')" class="action-delete"> 🗑️</a>
+                                </td>
+                            </tr>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Students ||Admin</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-    <link rel="website icon" type="png" href="../images/weblogo.png">
-    <link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-</head>
+                        <?php
+                        }
 
-<body>
-    <?php include_once('../includes/sidebar.php'); ?>
-    <section class="home-section" style="position: relative;">
-        <div class="home-content">
-            <div class="dashboard_header">
-                <i class='bx bx-menu'></i>
-                <span class="text">Manage Students || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
-            </div>
-            <div class="main_workPanel">
-                <div style="display: flex; justify-content:space-between; align-items:center;">
-                    <h3>Manage Students</h3>
-                    <input type="text" id="searchInput" placeholder="Search by student name..." style="margin-bottom: 10px; padding: 8px; width: 300px; border-radius:15px; border: 1px solid #4637bb90;">
-                </div>
-                <div class="admin_monitor">
-                    <div class="manage_admin_part">
-                        <h2>Manage Students</h2>
-                        <div class="table-group">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>S.No</th>
-                                        <th>Student ID</th>
-                                        <th>Student Name</th>
-                                        <th>Student Email</th>
-                                        <th>Contact No.</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="studentTableBody">
-                                    <?php
-                                    $all_students = mysqli_query($conn, "SELECT * FROM `student_db`");
-                                    $serial_no = 1;
-                                    while ($row = mysqli_fetch_assoc($all_students)) {
-                                    ?>
-
-                                        <tr>
-                                            <td><?php echo $serial_no++; ?></td>
-                                            <td><?php echo $row['s_ID']; ?></td>
-                                            <td><?php echo $row['s_Name']; ?></td>
-                                            <td><?php echo $row['s_Email']; ?></td>
-                                            <td><?php echo $row['s_ContactNo']; ?></td>
-                                            <td style="display:flex">
-                                                <a href="javascript:void(0);" onclick="openModal('<?= base64_encode($row['s_ID']); ?>')" class="action-view">👁️</a>
-                                                <p> / </p>
-                                                <a href="javascript:void(0);" onclick="confirmDelete('<?= base64_encode($row['s_ID']); ?>', '<?= addslashes($row['s_Name']); ?>')" class="action-delete"> 🗑️</a>
-                                            </td>
-                                        </tr>
-
-                                    <?php
-                                    }
-
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </section>
+    </div>
+
+</div>
     <!-- Modal Structure -->
     <div id="popup" class="modal" style="display:<?= isset($student) ? 'block' : 'none'; ?>; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0, 0, 0, 0.5); z-index:999;">
         <div class="modal-content" style=" position: relative; display: flex; justify-content: center; align-items: center; overflow-y: auto; height: 100%; padding: 20px;">
@@ -249,6 +233,5 @@ if (isset($_POST['S_Update'])) {
         });
     });
     </script>
-</body>
 
-</html>
+<?php include_once __DIR__ . '/../includes/admin_page_end.php'; ?>

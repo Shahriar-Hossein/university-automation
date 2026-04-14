@@ -29,79 +29,64 @@ console.log(' . count($students) . ');
 </script>
 ';
 ?>
+?>
+<?php
+    $page_title = 'Attendance || Admin';
+    include_once __DIR__ . '/../includes/admin_page_start.php';
+?>
+<div class="dashboard_header">
+  <i class='bx bx-menu'></i>
+  <span class="text">Attendance || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
+</div>
+<div class="main_workPanel">
+  <div>
+    <h3>Attendance</h3>
+  </div>
+  <div class="admin_monitor">
+    <div class="manage_admin_part">
+      <h2>Student's Attendance Overview</h2>
+      <form class="search-form" id="search-form">
+        <h3>Search Student:</h3>
+        <input type="text" id="student-id-input" placeholder="Search by Student ID" class="search-input">
+        <button type="submit" class="search-button">Search</button>
+      </form>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attendance || Admin</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="website icon" type="png" href="../images/weblogo.png">
-  <link rel="stylesheet" href="../pages/css/adminPagesStyle.css">
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-</head>
-
-<body>
-  <?php include_once('../includes/sidebar.php'); ?>
-  <section class="home-section">
-    <div class="home-content">
-      <div class="dashboard_header">
-        <i class='bx bx-menu'></i>
-        <span class="text">Attendance || <span style="font-weight: 300; margin-left: 10px;">Admin</span></span>
-      </div>
-      <div class="main_workPanel">
-        <div>
-          <h3>Attendance</h3>
-        </div>
-        <div class="admin_monitor">
-          <div class="manage_admin_part">
-            <h2>Student's Attendance Overview</h2>
-            <form class="search-form" id="search-form">
-              <h3>Search Student:</h3>
-              <input type="text" id="student-id-input" placeholder="Search by Student ID" class="search-input">
-              <button type="submit" class="search-button">Search</button>
-            </form>
-
-            <!-- Attendance Overview Table -->
-            <div id="attendance-overview" class="table-group" style="margin-top: 10px; width: 1000px; margin: 0 auto; background: whitesmoke; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Student ID</th>
-                    <th>Student Name</th>
-                    <th>Present</th>
-                    <th>Absent</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody id="attendance-data">
-                <!-- <tbody> -->
-                  <!-- Data will be populated here via AJAX -->
-                  <!-- Populate attendance data with PHP -->
-                  <?php if (!empty($students)) {
-                    foreach ($students as $student) {
-                      echo '<tr>';
-                      echo '<td>' . $student['student_id'] . '</td>';
-                      echo '<td>' . $student['student_name'] . '</td>';
-                      echo '<td>' . $student['present'] . '</td>';
-                      echo '<td>' . $student['absent'] . '</td>';
-                      echo '<td><a href="#" class="action-view" data-student-id="' . $student['student_id'] . '">👁️</a></td>';
-                      echo '</tr>';
-                    }
-                  } else {
-                    echo '<tr><td colspan="5">No students found.</td></tr>';
-                  }
-                  ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+      <!-- Attendance Overview Table -->
+      <div id="attendance-overview" class="table-group" style="margin-top: 10px; width: 1000px; margin: 0 auto; background: whitesmoke; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Student Name</th>
+              <th>Present</th>
+              <th>Absent</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="attendance-data">
+          <!-- <tbody> -->
+            <!-- Data will be populated here via AJAX -->
+            <!-- Populate attendance data with PHP -->
+            <?php if (!empty($students)) {
+              foreach ($students as $student) {
+                echo '<tr>';
+                echo '<td>' . $student['student_id'] . '</td>';
+                echo '<td>' . $student['student_name'] . '</td>';
+                echo '<td>' . $student['present'] . '</td>';
+                echo '<td>' . $student['absent'] . '</td>';
+                echo '<td><a href="#" class="action-view" data-student-id="' . $student['student_id'] . '">👁️</a></td>';
+                echo '</tr>';
+              }
+            } else {
+              echo '<tr><td colspan="5">No students found.</td></tr>';
+            }
+            ?>
+          </tbody>
+        </table>
       </div>
     </div>
-  </section>
+  </div>
+</div>
 
   <!-- Pop-up Modal -->
   <div id="popup" class="popup" style="display:none;">
@@ -128,7 +113,6 @@ console.log(' . count($students) . ');
     </div>
   </div>
 
-  <script src="../js/script.js"></script>
   <script>
     // Handle search form submission
     document.getElementById('search-form').addEventListener('submit', function (event) {
@@ -200,6 +184,5 @@ console.log(' . count($students) . ');
       document.getElementById('popup').style.display = 'none';
     });
   </script>
-</body>
 
-</html>
+<?php include_once __DIR__ . '/../includes/admin_page_end.php'; ?>
