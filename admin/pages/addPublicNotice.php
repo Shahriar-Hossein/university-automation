@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once '../includes/dbconnection.php';
+require_once __DIR__ . '/../../dbconnection.php';
+
 if(isset($_POST['submitMsg'])){
      $pn_title = $_POST['pubnotice_title'];
      $pn_msg = $_POST['notmsg'];

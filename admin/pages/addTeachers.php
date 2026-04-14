@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once '../includes/dbconnection.php';
+require_once __DIR__ . '/../../dbconnection.php';
+
 if(isset($_POST['TRegistration'])){
      $t_name = $_POST['teacher_name'];
      $t_email = $_POST['teacher_email'];

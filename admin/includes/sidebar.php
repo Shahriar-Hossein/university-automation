@@ -10,7 +10,10 @@ if (!isset($conn)) {
 
 // Compute a dynamic base URL so links work on any host/port/path
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ? 'https' : 'http';
-$base_path = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/\\');
+// Use the parent directory of the script's directory as a starting point
+$raw_base_path = rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/\\');
+// If the path ends with '/admin', strip it so we don't append '/admin' again later
+$base_path = preg_replace('#/admin$#', '', $raw_base_path);
 $base_url = $protocol . '://' . $_SERVER['HTTP_HOST'] . ($base_path === '' || $base_path === '/' ? '' : $base_path);
 
 if (!isset($_SESSION['admin_login_id'])) {

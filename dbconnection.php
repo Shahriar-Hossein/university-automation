@@ -10,11 +10,13 @@ define('DB_USER', 'root');
 define('DB_PASS', 'root');
 define('DB_NAME', 'smsdb');
 
-// Establish database connection.
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+// Establish database connection if not already created.
+if (!isset($conn) || !($conn instanceof mysqli)) {
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-// Check connection.
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    // Check connection.
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 }
 // echo "Successfully connected...!";
