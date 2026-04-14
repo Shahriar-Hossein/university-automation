@@ -2,7 +2,7 @@
 // edit_notice.php
 
 session_start();
-require_once('../includes/dbconnection.php');
+require_once __DIR__ . '/../../dbconnection.php';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

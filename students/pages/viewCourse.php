@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../includes/dbconnection.php');
+require_once __DIR__ . '/../../dbconnection.php';
 if (!isset($_SESSION['student_login_id'])) {
   header('Location: ../studentlogin.php');
 }

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../includes/dbconnection.php');
+require_once __DIR__ . '/../../dbconnection.php';
 
 // Check if the student is logged in
 if (!isset($_SESSION['student_login_id'])) {

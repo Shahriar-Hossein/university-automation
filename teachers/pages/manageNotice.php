@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../includes/dbconnection.php');
+require_once __DIR__ . '/../../dbconnection.php';
 
 // Redirect to login page if the user is not logged in
 if (!isset($_SESSION['teacher_login_id'])) {

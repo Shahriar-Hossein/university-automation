@@ -1,6 +1,6 @@
 <?php
 // Include the database connection
-require_once('../includes/dbconnection.php');
+require_once __DIR__ . '/../../dbconnection.php';
 
 // Check if the course_id parameter is passed
 if (isset($_GET['course_id'])) {
