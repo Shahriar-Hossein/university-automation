@@ -1,5 +1,4 @@
 <?php
-require_once BASE_PATH . '/dbconnection.php';
 
 // Compute a dynamic base URL so links work on any host/port/path
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ? 'https' : 'http';
