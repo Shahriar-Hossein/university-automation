@@ -75,7 +75,7 @@ echo '
         <div class="admin_monitor">
           <div class="manage_admin_part" style="position: relative;">
             <h2>View Course</h2>
-            <div style="position: absolute; top:20px; right:280px;"><a href="<?= BASE_URL ?>students/pages/courseSchedule.php"><i class='bx bx-timer' style="font-size: 30px;;"></i></a></div>
+            <div style="position: absolute; top:20px; right:280px;"><a href="<?= BASE_URL ?>courseSchedule.php"><i class='bx bx-timer' style="font-size: 30px;;"></i></a></div>
             <div class="table-group">
               <table style="margin-top: 20px; width: 1500px;">
                 <thead>

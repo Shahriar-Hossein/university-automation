@@ -97,7 +97,7 @@ if (isset($_POST['student_edit'])){
                 </div>
 
                 <div class="admin_monitor_add" style="position: relative;">
-                    <div style="position: absolute; top:20px; right:20px;"><a href="<?= BASE_URL ?>students/pages/profile.php"><i class='bx bx-arrow-back' style='font-size: 30px;'></i></a></div>
+                    <div style="position: absolute; top:20px; right:20px;"><a href="<?= BASE_URL ?>profile.php"><i class='bx bx-arrow-back' style='font-size: 30px;'></i></a></div>
 
                     <form class="form" method="POST" enctype="multipart/form-data"> >
                         <h2>Edit Profile</h2>

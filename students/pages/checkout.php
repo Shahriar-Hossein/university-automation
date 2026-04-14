@@ -32,9 +32,9 @@ $post_data['store_passwd'] = "esalo66771bf6452aa@ssl";
 $post_data['total_amount'] = $payable ?? 2500;
 $post_data['currency'] = "BDT";
 $post_data['tran_id'] = "SSLCZ_TEST_" . uniqid();
-$post_data['success_url'] = BASE_URL . 'students/pages/payment.php?' . http_build_query(['status' => 1, 'user_id' => $user_id]);
-$post_data['fail_url'] = BASE_URL . 'students/pages/payment.php?' . http_build_query(['status' => 0, 'user_id' => $user_id]);
-$post_data['cancel_url'] = BASE_URL . 'students/pages/payment.php?' . http_build_query(['status' => -1, 'user_id' => $user_id]);
+$post_data['success_url'] = BASE_URL . 'payment.php?' . http_build_query(['status' => 1, 'user_id' => $user_id]);
+$post_data['fail_url'] = BASE_URL . 'payment.php?' . http_build_query(['status' => 0, 'user_id' => $user_id]);
+$post_data['cancel_url'] = BASE_URL . 'payment.php?' . http_build_query(['status' => -1, 'user_id' => $user_id]);
 
 # $post_data['multi_card_name'] = "mastercard,visacard,amexcard";  # DISABLE TO DISPLAY ALL AVAILABLE
 
