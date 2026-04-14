@@ -1,9 +1,13 @@
 <?php
 // echo "Welcome to the Student database (smsdb)";
 // DB credentials.
-define('DB_HOST', 'localhost');
+// for windows with laragon
+// define('DB_HOST', 'localhost');
+
+// for ubuntu serving with : php -S 127.0.0.1:8000
+define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'root');
 define('DB_NAME', 'smsdb');
 
 // Establish database connection.
@@ -14,4 +18,3 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 // echo "Successfully connected...!";
-?>
