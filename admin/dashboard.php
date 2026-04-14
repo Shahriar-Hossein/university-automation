@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once('includes/dbconnection.php');
 
 if (!isset($_SESSION['admin_login_id'])) {
   header('Location: ../adminlogin.php');
