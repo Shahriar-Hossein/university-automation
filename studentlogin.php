@@ -31,6 +31,8 @@ $id_name = 'SID';
 $pw_name = 'SPASSWORD';
 $id_label = 'Enter your ID';
 $submit_name = 'SLOGIN';
+$default_id = '12';
+$default_pw = '123';
 
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/login_form.php';

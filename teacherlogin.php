@@ -32,6 +32,8 @@ $id_name = 'username';
 $pw_name = 'password';
 $id_label = 'Enter your username';
 $submit_name = 'login';
+$default_id = 'mushfiq201';
+$default_pw = '123';
 
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/login_form.php';

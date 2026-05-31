@@ -31,6 +31,8 @@ $id_name = 'AID';
 $pw_name = 'APASSWORD';
 $id_label = 'Enter your ID';
 $submit_name = 'ALOGIN';
+$default_id = '1001';
+$default_pw = 'admin';
 
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/login_form.php';

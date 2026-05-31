@@ -21,12 +21,12 @@ if (!isset($submit_name)) {
 <form action="<?php echo $form_action; ?>" method="POST">
     <div class="loginpart" style="margin-top: 50px;">
         <h3><?php echo htmlspecialchars($id_label); ?></h3>
-        <input type="text" required name="<?php echo htmlspecialchars($id_name); ?>">
+        <input type="text" required name="<?php echo htmlspecialchars($id_name); ?>" value="<?php echo htmlspecialchars($default_id ?? ''); ?>">
         <span style="color: red;">
             <?php if (!empty($id_error)) { echo $id_error; } ?>
         </span>
         <h3>Enter your password</h3>
-        <input type="password" required name="<?php echo htmlspecialchars($pw_name); ?>">
+        <input type="password" required name="<?php echo htmlspecialchars($pw_name); ?>" value="<?php echo htmlspecialchars($default_pw ?? ''); ?>">
         <span style="color: red; padding-bottom:10px;">
             <?php if (!empty($password_error)) { echo $password_error; } ?>
         </span>
